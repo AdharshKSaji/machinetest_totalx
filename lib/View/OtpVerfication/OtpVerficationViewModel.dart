@@ -14,9 +14,7 @@ class OtpVerificationViewModel extends ChangeNotifier {
 
   Future<void> verifyOtp() async {
     try {
-      // Add your OTP verification logic here.
-      // Example: await api.verifyOtp(_otp);
-
+      
       _errorMessage = '';
     } catch (e) {
       _errorMessage = 'Verification failed. Please try again.';
@@ -27,8 +25,7 @@ class OtpVerificationViewModel extends ChangeNotifier {
 
   Future<void> resendOtp() async {
     try {
-      // Add your OTP resend logic here.
-      // Example: await api.resendOtp();
+      
 
       _errorMessage = '';
     } catch (e) {

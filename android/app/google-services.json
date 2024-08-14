@@ -151,6 +151,42 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:542055759500:android:7a788948f01efeb69c05a9",
+        "android_client_info": {
+          "package_name": "com.machinetesttotalx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "542055759500-f9lqt9t8u5vf7cu0281rgeiefkgs3gel.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_xpQXF3Iz4y2cPh5-TK-TRqoZqB5QGYo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "542055759500-f9lqt9t8u5vf7cu0281rgeiefkgs3gel.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "542055759500-798bt40gcik76m3ahsfujvkkc4eunk8j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.enoikiou"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:542055759500:android:181b2bbff0cbf1939c05a9",
         "android_client_info": {
           "package_name": "com.machinetext_TotalX.app"

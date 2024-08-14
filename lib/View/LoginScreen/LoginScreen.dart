@@ -28,15 +28,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Image.asset('assets/images/image1.png'),
                       const SizedBox(height: 20.0),
-                      
                     ],
                   ),
-                  
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("Enter Phone Number",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
-                       const SizedBox(height: 20.0),
+                      const Text(
+                        "Enter Phone Number",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+                      const SizedBox(height: 20.0),
                       TextField(
                         decoration: InputDecoration(
                           labelText: 'Phone Number',
@@ -80,16 +84,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     width: double.infinity, 
                     child: ElevatedButton(
-                      onPressed: () {
-                        viewModel.sendOtp();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => OtpVerificationScreen(
-                              phoneNumber: viewModel.phoneNumber, verificationId: '',
+                      onPressed: () async {
+                        await viewModel.sendOtp(); // Send OTP
+                        if (viewModel.isCodeSent) { // Navigate to OTP screen if the code is sent
+                          Navigator.push(
+                            // ignore: use_build_context_synchronously
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => OtpVerificationScreen(
+                                phoneNumber: viewModel.phoneNumber,
+                                verificationId: viewModel.phoneNumber, 
+                              ),
                             ),
-                          ),
-                        );
+                          );
+                        } else {
+                        
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Failed to send OTP. Please try again.')),
+                          );
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.black, 
