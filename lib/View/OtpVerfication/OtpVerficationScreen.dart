@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:machinetest_totalx/View/NewUser/NewUser.dart';
 import 'package:machinetest_totalx/View/OtpVerfication/OtpVerficationViewModel.dart';
+import 'package:machinetest_totalx/View/UserList/userlistscreen.dart';
 import 'package:provider/provider.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
@@ -99,7 +99,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         child: ElevatedButton(
                           onPressed: () async {
                             // await viewModel.verifyOtp();
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => NewUserScreen(),));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => UserListScreen()));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.black,
