@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:machinetest_totalx/View/LoginScreen/LoginScreen.dart';
 // import 'package:machinetest_totalx/View/LoginScreen/LoginScreen.dart';
 import 'package:machinetest_totalx/View/UserList/userlistscreen.dart';
 import 'package:machinetest_totalx/firebase_options.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
     
-      home: UserListScreen()
+      home: LoginScreen()
     );
   }
 }
