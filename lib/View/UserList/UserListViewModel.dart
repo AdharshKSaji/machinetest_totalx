@@ -1,5 +1,3 @@
-
-
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,19 +7,20 @@ import 'package:image_picker/image_picker.dart';
 
 class UserListViewModel extends ChangeNotifier {
   String _name = '';
-  String _age = '';
+  int _age = 0;
   File? imageFile;
+  String selectedSortOption = 'all';
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   void updateName(String name) {
     _name = name;
-    notifyListeners();
+    // notifyListeners();
   }
 
   void updateAge(String age) {
-    _age = age;
-    notifyListeners();
+    _age = int.parse(age);
+    // notifyListeners();
   }
 
   Future<void> pickImage() async {
@@ -47,11 +46,6 @@ class UserListViewModel extends ChangeNotifier {
   }
 
   Future<bool> addUser() async {
-    if (_name.isEmpty || _age.isEmpty) {
-      // Handle empty fields
-      throw Exception('Name and Age are required');
-    }
-
     try {
       var userData = await _firestore.collection('users').add({
         'name': _name,
@@ -73,6 +67,23 @@ class UserListViewModel extends ChangeNotifier {
   }
 
   Stream<QuerySnapshot> getUsersStream() {
-    return _firestore.collection('users').snapshots();
+    if (selectedSortOption == 'age_younger') {
+      return _firestore
+          .collection('users')
+          .where('age', isLessThan: 60)
+          .snapshots();
+    } else if (selectedSortOption == 'age_elder') {
+      return _firestore
+          .collection('users')
+          .where('age', isGreaterThanOrEqualTo: 60)
+          .snapshots();
+    } else {
+      return _firestore.collection('users').snapshots();
+    }
+  }
+
+  void filterChanged(String option) {
+    selectedSortOption = option;
+    notifyListeners();
   }
 }
