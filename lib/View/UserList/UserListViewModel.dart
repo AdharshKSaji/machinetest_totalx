@@ -1,3 +1,5 @@
+
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,34 +24,26 @@ class UserListViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // void updateAvatarUrl(String avatarUrl) {
-  //   _avatarUrl = avatarUrl;
-  //   notifyListeners();
-  // }
-
   Future<void> pickImage() async {
     final picker = ImagePicker();
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
-      
-        imageFile = File(pickedFile.path);
-        notifyListeners();
-      
+      imageFile = File(pickedFile.path);
+      notifyListeners();
     }
   }
-  
-  Future< String> updateAvatarUrl(File? imageData,String uid) async {
+
+  Future<String> updateAvatarUrl(File? imageData, String uid) async {
     if (imageData == null) {
       return '';
     }
-  
+
     final storageRef = FirebaseStorage.instance.ref();
     final folderRef = storageRef.child('images');
-    // final userRef = folderRef.child(currentUser?.uid ?? 'unknown');
     final imageRef = folderRef.child('$uid.jpg');
     await imageRef.putFile(imageData);
-    return  await imageRef.getDownloadURL();
+    return await imageRef.getDownloadURL();
   }
 
   Future<bool> addUser() async {
@@ -59,20 +53,21 @@ class UserListViewModel extends ChangeNotifier {
     }
 
     try {
-    var userData=  await _firestore.collection('users').add({
+      var userData = await _firestore.collection('users').add({
         'name': _name,
         'age': _age,
         'avatarUrl': '',
       });
-     var imageurl=await updateAvatarUrl(imageFile, userData.id);
-    await _firestore.collection('users').doc(userData.id).update({
+      var imageUrl = await updateAvatarUrl(imageFile, userData.id);
+      await _firestore.collection('users').doc(userData.id).update({
         'name': _name,
         'age': _age,
-        'avatarUrl': imageurl,
+        'avatarUrl': imageUrl,
       });
       return true;
     } catch (e) {
       // Handle errors
+      print('Error adding user: $e');
     }
     return false;
   }

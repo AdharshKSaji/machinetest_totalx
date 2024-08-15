@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:machinetest_totalx/View/OtpVerfication/OtpVerficationViewModel.dart';
 import 'package:machinetest_totalx/View/UserList/userlistscreen.dart';
 import 'package:provider/provider.dart';
+import 'package:pinput/pinput.dart';  // Import the pinput package
 
 class OtpVerificationScreen extends StatefulWidget {
   final String phoneNumber;
@@ -33,7 +34,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 children: [
                   Column(
                     children: [
-                      Image.asset('assets/images/image.png'),
+                      Image.asset('assets/images/image2.png'),
                       const SizedBox(height: 20.0),
                     ],
                   ),
@@ -51,15 +52,25 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         style: TextStyle(fontSize: 14),
                       ),
                       const SizedBox(height: 20.0),
-                      TextField(
-                        decoration: InputDecoration(
-                          labelText: 'OTP',
-                          border: OutlineInputBorder(
+                      Pinput(
+                        length: 6,
+                        defaultPinTheme: PinTheme(
+                          width: 40,
+                          height: 50,
+                          decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(color: Colors.grey),
                           ),
                         ),
-                        keyboardType: TextInputType.number,
                         onChanged: viewModel.updateOtp,
+                        focusedPinTheme: PinTheme(
+                          width: 40,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(color: Colors.blue),
+                          ),
+                        ),
                       ),
                       if (viewModel.errorMessage.isNotEmpty)
                         Padding(
@@ -79,7 +90,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              
                               viewModel.resendOtp();
                             },
                             child: const Text(
